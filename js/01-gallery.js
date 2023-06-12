@@ -28,6 +28,20 @@ function onClick(event) {
   const instance = basicLightbox.create(`
   <img src="${event.target.dataset.source}" width="600" height="400">
 `);
-  //   window.close(escape);
+
+  instance.element().addEventListener("keydown", (event) => {
+    if (event.key === "Escape") {
+      instance.close();
+    }
+  });
+
   instance.show();
+  galleryEl.addEventListener("keydown", handleKeyDown);
+
+  function handleKeyDown(event) {
+    if (event.key === "Escape") {
+      instance.close();
+      galleryEl.removeEventListener("keydown", handleKeyDown);
+    }
+  }
 }
